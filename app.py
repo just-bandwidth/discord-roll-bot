@@ -1,7 +1,9 @@
-import threading
 import os
+import threading
 
 from flask import Flask
+
+import bot as bot_module
 
 app = Flask(__name__)
 
@@ -11,19 +13,15 @@ def health():
 
 @app.route("/")
 def root():
-    return "Listening", 200
+    return "Bot is running", 200
 
-def run_bot():
-    import bot  # noqa: F401 – this triggers bot.py's __main__ indirectly
-    # Actually, we'll import cleanly:
-    from bot import bot
+def start_bot():
     token = os.environ["DISCORD_TOKEN"]
-    bot.run(token)
+    bot_module.bot.run(token)
 
-# Start the bot in a background thread
-bot_thread = threading.Thread(target=run_bot, daemon=True)
-bot_thread.start()
+if __name__ == "__main__":
+    t = threading.Thread(target=start_bot, daemon=True)
+    t.start()
 
-# Run the Flask health server on the port Render assigns
-port = int(os.environ.get("PORT", 8080))
-app.run(host="0.0.0.0", port=port)
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host="0.0.0.0", port=port)
