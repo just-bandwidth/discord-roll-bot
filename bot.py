@@ -14,8 +14,8 @@ async def roll(ctx, minimum: int = 1, maximum: int = 100):
     if minimum > maximum:
         minimum, maximum = maximum, minimum
     result = random.randint(minimum, maximum)
-    await ctx.send(f"🎲 Rolled range {minimum}–{maximum}")
-    await ctx.send(f"**{result}**")
+    await ctx.send(f"**🎲 Rolled range {minimum}–{maximum}**")
+    await ctx.send(f"{result}")
 
 @bot.event
 async def on_ready():
