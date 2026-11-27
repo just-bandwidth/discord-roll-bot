@@ -16,3 +16,9 @@ Examples:
 
 ## Limits
 Capped at 2,000 characters (4,000 for Nitro users).
+
+
+
+## Setup
+- Build Command: `pip install -r requirements.txt`
+- Start Command: `python app.py`
